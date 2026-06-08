@@ -1,0 +1,4 @@
+file,step_count,avg_spm,min_spm,max_spm
+step_timestamps_20260516_225339_single.txt,179,55.92,9.27,180.18
+step_timestamps_20260516_225343_single.txt,74,95.99,7.89,209.79
+step_timestamps_both_legs_20260516.txt,241,104.08,9.27,495.87
