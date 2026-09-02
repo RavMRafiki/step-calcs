@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
 # 1. Load and prepare the data
-df = pd.read_csv('sensor_data_20260607_215226.csv')
+df = pd.read_csv('sensor_data_20260607_215231.csv')
 df_acc = df[df['sensor'] == 'Accelerometer'].copy()
 df_acc.reset_index(drop=True, inplace=True)
 
@@ -17,7 +17,7 @@ signal = df_acc['x'].values
 inverted_signal = -signal
 
 # 3. Find the peaks (heel strikes)
-peaks, _ = find_peaks(inverted_signal, prominence=15, distance=50)
+peaks, _ = find_peaks(inverted_signal, prominence=33, distance=80)
 
 # 4. Extract the peak data and save to CSV
 df_peaks = df_acc.iloc[peaks].copy()
@@ -25,7 +25,7 @@ df_peaks = df_acc.iloc[peaks].copy()
 df_peaks = df_peaks[['timestamp', 'time_sec', 'sensor', 'x', 'y', 'z']]
 
 # Save directly to a new CSV file
-df_peaks.to_csv('heel_strikes_detected_20260607_215226.csv', index=False)
+df_peaks.to_csv('heel_strikes_detected_20260607_215231.csv', index=False)
 
 # 5. Visualize and save the chart
 plt.figure(figsize=(50, 6))
@@ -39,5 +39,4 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 
 # Save the plot as an image
-plt.savefig('heel_strikes_chart_20260607_215226.png')
-plt.show()
+plt.savefig('heel_strikes_chart_20260607_215231.png')
