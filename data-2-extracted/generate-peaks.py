@@ -11,7 +11,7 @@ FILES = [
     'sensor_data_20260607_215226.csv',
     'sensor_data_20260607_215231.csv',
 ]
-PROMINENCE = 25      # minimum depth of a downward spike to count as a strike
+PROMINENCE = 14      # minimum depth of a downward spike to count as a strike
 MIN_GAP_MS = 700     # refractory period; shortest observed stride is ~970 ms
 
 

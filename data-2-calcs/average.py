@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-MAX_ERROR_PLOT = 1.25
+MAX_ERROR_PLOT = 0.7
 
 # Load data
 df = pd.read_csv("combined_heel_strikes.csv")
