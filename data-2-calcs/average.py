@@ -103,6 +103,29 @@ for method_name, pred_func in methods.items():
     all_predictions[method_name] = predictions
 
 
+# Save results to CSV
+# =====================================================================
+
+# Errors: one row per (method, N)
+errors_df = pd.concat(
+    [r_df.assign(Method=method_name) for method_name, r_df in all_results.items()],
+    ignore_index=True,
+)[['Method', 'N', 'MAE', 'RMSE']]
+errors_df.to_csv('prediction_errors.csv', index=False)
+
+# Predictions: one file per method, one row per step, one column per N.
+# Empty cells = warm-up (not enough previous steps yet to compute the average).
+for method_name, predictions in all_predictions.items():
+    predictions_df = pd.DataFrame({
+        'step_index': y.index,
+        'time_sec': df['time_sec'].round(3),
+        'actual': y.round(3),
+    })
+    for n in N_values:
+        predictions_df[f'N{n}'] = predictions[n].round(3)
+    predictions_df.to_csv(f'predictions_{method_name}.csv', index=False)
+
+
 sma_results_df, sma_predictions = all_results['SMA'], all_predictions['SMA']
 ema_results_df, ema_predictions = all_results['EMA'], all_predictions['EMA']
 wma_results_df, wma_predictions = all_results['WMA'], all_predictions['WMA']
@@ -182,5 +205,6 @@ for method_name, r_df in all_results.items():
     })
 
 summary_df = pd.DataFrame(summary_rows)
+summary_df.to_csv('prediction_errors_summary.csv', index=False)
 print("\nSummary (best N per method by MAE):")
 print(summary_df)
